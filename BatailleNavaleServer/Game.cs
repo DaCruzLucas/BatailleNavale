@@ -7,22 +7,24 @@
 
         public int tour = 0;
 
-        Player? player1;
-        Player? player2;
+        public readonly int Id;
 
-        public Game()
+        public Player player1 = new Player("");
+        public Player player2 = new Player("");
+
+        public Game(int id)
         {
-
+            Id = id;
         }
 
         public bool AddPlayer(string connectionId)
         {
-            if (player1 != null)
+            if (player1.connectionId == "")
             {
                 player1 = new Player(connectionId);
                 return true;
             }
-            else if (player2 != null)
+            else if (player2.connectionId == "")
             {
                 player2 = new Player(connectionId);
                 return true;
@@ -35,11 +37,11 @@
 
         public void InitialisePlayers()
         {
-            player1?.GenerateGrid();
-            player1?.GenerateShootingGrid();
+            player1.GenerateGrid();
+            player1.GenerateShootingGrid();
 
-            player2?.GenerateGrid();
-            player2?.GenerateShootingGrid();
+            player2.GenerateGrid();
+            player2.GenerateShootingGrid();
         }
     }
 }

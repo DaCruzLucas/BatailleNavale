@@ -6,9 +6,9 @@ namespace BatailleNavaleServer
     {
         private readonly IHubContext<BatailleNavaleHub> hub;
 
-        public Dictionary<int, Game> games = new Dictionary<int, Game>();
+        public Dictionary<int, Game> Games = new Dictionary<int, Game>();
 
-        public int id = 0;
+        private int id = 0;
 
         public BatailleNavaleService(IHubContext<BatailleNavaleHub> hub)
         {
@@ -18,15 +18,32 @@ namespace BatailleNavaleServer
         public int CreateGame(string connectionId)
         {
             id++;
-            games.Add(id, new Game(connectionId, ""));
+            Games.Add(id, new Game(id));
             return id;
         }
 
-        public int FindGame()
+        public int FindGame(string connectionId)
         {
-            
+            try
+            {
+                for (int i = 0; i < Games.Count; i++)
+                {
+                    if (Games[i].AddPlayer(connectionId))
+                    {
+                        return Games[i].Id;
+                    }
+                }
 
-            return -1;
+                return -1;
+            }
+            catch (Exception e)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine(e);
+                Console.ResetColor();
+
+                return -1;
+            }
         }
     }
 }

@@ -15,6 +15,7 @@ namespace BatailleNavaleServer
         {
             Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine("Client " + Context.ConnectionId + " has connected");
+            Console.ResetColor();
 
             await base.OnConnectedAsync();
         }
@@ -23,6 +24,7 @@ namespace BatailleNavaleServer
         {
             Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine("Client " + Context.ConnectionId + " has disconnected");
+            Console.ResetColor();
 
             await base.OnDisconnectedAsync(exception);
         }
